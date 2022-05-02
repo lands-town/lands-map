@@ -72,3 +72,28 @@ header .primary-btn {
 .hint li img {
   margin-right: 10px;
 }
+
+@media (max-width: 768px) {
+  .logo .logo-text {
+    font-size: 12px;
+    line-height: 15px;
+  }
+  .logo img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .hint {
+    display: none;
+  }
+
+  .primary-btn {
+    padding: 10px 28px;
+    font-size: 14px;
+  }
+  .primary-btn img {
+    width: 16px;
+    height: 16px;
+ 
+  }
+}
