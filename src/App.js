@@ -6,6 +6,9 @@ import * as THREE from "three";
 import glb from "./static/map/map-v1.glb";
 import texture from "./static/map/map-texture-v1.jpg";
 import Header from "./components/Header";
+import leftClick from "./static/icons/left-click.svg";
+import scroll from "./static/icons/scroll.svg";
+import rightClick from "./static/icons/right-click.svg";
 
 const App = () => {
   const webgl = useRef();
@@ -130,6 +133,21 @@ const App = () => {
     <>
       <Header />
       <canvas className="webgl" ref={webgl}></canvas>
+
+      <ul className="hint">
+        <li>
+          <img src={leftClick} />
+          Rotate
+        </li>
+        <li>
+          <img src={scroll} />
+          Zoom 
+        </li>
+        <li>
+          <img src={rightClick} />
+          Move
+        </li>
+      </ul>
     </>
   );
 };

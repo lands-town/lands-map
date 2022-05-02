@@ -55,3 +55,20 @@ header .primary-btn {
   height: 18px;
   margin-right: 5px;
 }
+
+.hint {
+  position: absolute;
+  z-index: 10;
+  left: 30px;
+  bottom: 20px;
+  list-style: none;
+}
+.hint li {
+  margin-bottom: 10px;
+  display: flex;
+  color: #bababa;
+  font-weight: 300;
+}
+.hint li img {
+  margin-right: 10px;
+}
