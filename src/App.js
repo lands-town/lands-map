@@ -5,6 +5,7 @@ import * as THREE from "three";
 
 import glb from "./static/map/map-v1.glb";
 import texture from "./static/map/map-texture-v1.jpg";
+import Header from "./components/Header";
 
 const App = () => {
   const webgl = useRef();
@@ -125,7 +126,12 @@ const App = () => {
     tick();
   }, []);
 
-  return <canvas className="webgl" ref={webgl}></canvas>;
+  return (
+    <>
+      <Header />
+      <canvas className="webgl" ref={webgl}></canvas>
+    </>
+  );
 };
 
 export default App;

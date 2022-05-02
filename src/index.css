@@ -1,25 +1,57 @@
-*
-{
-    margin: 0;
-    padding: 0;
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
 }
 
 html,
-body
-{
-    overflow: hidden;
-    font-family: 'Poppins', sans-serif;
+body {
+  overflow: hidden;
+  font-family: "Poppins", sans-serif;
 }
 
-.webgl
-{
-    position: fixed;
-    top: 0;
-    left: 0;
-    outline: none;
+.webgl {
+  position: fixed;
+  top: 0;
+  left: 0;
+  outline: none;
+}
+
+header .primary-btn {
+  position: absolute;
+  z-index: 10;
+  right: 30px;
+  top: 20px;
 }
 
 .logo {
-    position: absolute ;
-    z-index: 10;
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  left: 30px;
+  top: 20px;
+}
+.logo img {
+  width: 50px;
+  height: 50px;
+}
+.logo .logo-text {
+  color: #fff;
+  line-height: 22px;
+  margin-left: 10px;
+}
+.primary-btn {
+  display: flex;
+  background-color: #006ff2;
+  color: #fff;
+  border: none;
+  padding: 12px 35px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+.primary-btn img {
+  width: 18px;
+  height: 18px;
+  margin-right: 5px;
 }
