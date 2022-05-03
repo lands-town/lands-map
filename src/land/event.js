@@ -1,27 +1,27 @@
 import * as THREE from "three";
 
-const data = [1000, 1001, 1002];
-
-const clear = (gltf) => {
-  data.map((item) => {
-    gltf.scene.children[item].material = new THREE.MeshBasicMaterial({
-      color: "#008000",
+const clear = (gltf, lands) => {
+  lands.map(({ child }) => {
+    gltf.scene.children[Number(child)].material = new THREE.MeshBasicMaterial({
+      color: "#2cc202",
     });
   });
 };
 
-const event = (gltf, setSelect) => {
-  data.map((item, index) => {
-    gltf.scene.children[item].cursor = "pointer";
-    gltf.scene.children[item].on("click", function (ev) {
-      setSelect({ name: ev.data.target.name, size: "", link: "", img: "" });
+const handleCLick = (gltf, setSelect, lands) => {
+  lands.map(({ child, name, size, link }) => {
+    gltf.scene.children[Number(child)].cursor = "pointer";
+    gltf.scene.children[Number(child)].on("click", function (ev) {
+      setSelect({ name, size, link });
       console.log(ev);
-      clear(gltf);
-      gltf.scene.children[item].material = new THREE.MeshBasicMaterial({
-        color: "#FF00FF",
-      });
+      clear(gltf, lands);
+      gltf.scene.children[Number(child)].material = new THREE.MeshBasicMaterial(
+        {
+          color: "#0164d8",
+        }
+      );
     });
   });
 };
 
-export default event;
+export default handleCLick;

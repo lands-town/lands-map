@@ -1,11 +1,9 @@
 import * as THREE from "three";
 
-const data = [1000, 1001, 1002];
-
-const active = (gltf) => {
-  data.map((item) => {
-    gltf.scene.children[item].material = new THREE.MeshBasicMaterial({
-      color: "#008000",
+const active = (gltf, lands) => {
+  lands.map(({ child }) => {
+    gltf.scene.children[Number(child)].material = new THREE.MeshBasicMaterial({
+      color: "#2cc202",
     });
   });
 };

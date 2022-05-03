@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "./Button";
-import defaultImage from "../static/map/map.png";
+import defaultImage from "../static/map/land-04x04.png";
 
 import "../styles/select-dialog.css";
 
@@ -15,7 +15,7 @@ export default function Select({
       <img src={image} />
       <div className="dialog-text">
         <h2>district {district}</h2>
-        <p className="name">#{name}</p>
+        <p className="name">{name}</p>
         <p>Size: {size}</p>
       </div>
       <div className="dialog-action">

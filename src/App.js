@@ -1,7 +1,7 @@
+import * as THREE from "three";
 import { useEffect, useRef, useState } from "react";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-import * as THREE from "three";
 import glb from "./static/map/map-v1.glb";
 import texture from "./static/map/map-texture-v1.jpg";
 import Header from "./components/Header";
@@ -11,7 +11,8 @@ import rightClick from "./static/icons/right-click.svg";
 import { Interaction } from "./static/Interaction/src/index.js";
 import BuyDialog from "./components/BuyDialog";
 import active from "./land/active";
-import event from "./land/event";
+import axios from "axios";
+import handleCLick from "./land/event";
 
 const App = () => {
   const webgl = useRef();
@@ -42,14 +43,22 @@ const App = () => {
 
     const materilgltf = new THREE.MeshBasicMaterial({ map: backed });
 
-    gltfLoader.load(glb, (gltf) => {
-      gltf.scene.traverse((child) => {
-        child.material = materilgltf;
+    axios
+      .get(process.env.REACT_APP_API, {
+        headers: {
+          Authorization: `Bearer ${process.env.TOKEN}`,
+        },
+      })
+      .then(({ data }) => {
+        gltfLoader.load(glb, (gltf) => {
+          gltf.scene.traverse((child) => {
+            child.material = materilgltf;
+          });
+          active(gltf, data); //green lands
+          handleCLick(gltf, setSelect, data); // select
+          scene.add(gltf.scene);
+        });
       });
-      active(gltf);
-      event(gltf, setSelect);
-      scene.add(gltf.scene);
-    });
 
     /**
      * Sizes
@@ -150,7 +159,7 @@ const App = () => {
           Move
         </li>
       </ul>
-      {select && <BuyDialog name={select.name} />}
+      {select && <BuyDialog name={select.name} size={select.size} link={select.link} />}
     </>
   );
 };
