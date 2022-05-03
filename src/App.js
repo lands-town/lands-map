@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import * as THREE from "three";
-
 import glb from "./static/map/map-v1.glb";
 import texture from "./static/map/map-texture-v1.jpg";
 import Header from "./components/Header";
@@ -10,10 +9,13 @@ import leftClick from "./static/icons/left-click.svg";
 import scroll from "./static/icons/scroll.svg";
 import rightClick from "./static/icons/right-click.svg";
 import { Interaction } from "./static/Interaction/src/index.js";
-import Select from "./components/BuyDialog";
+import BuyDialog from "./components/BuyDialog";
+import active from "./land/active";
+import event from "./land/event";
 
 const App = () => {
   const webgl = useRef();
+  const [select, setSelect] = useState(null);
 
   useEffect(() => {
     // Canvas
@@ -44,12 +46,9 @@ const App = () => {
       gltf.scene.traverse((child) => {
         child.material = materilgltf;
       });
-
+      active(gltf);
+      event(gltf, setSelect);
       scene.add(gltf.scene);
-      gltf.scene.children[0].cursor = "pointer";
-      gltf.scene.children[0].on("click", function (ev) {
-        window.location.href = "#";
-      });
     });
 
     /**
@@ -151,7 +150,7 @@ const App = () => {
           Move
         </li>
       </ul>
-      <Select />
+      {select && <BuyDialog name={select.name} />}
     </>
   );
 };
