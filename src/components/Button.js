@@ -1,9 +1,9 @@
 import React from "react";
 
-export default function Button({ text, icon }) {
+export default function Button({ text, icon, onClick }) {
   return (
-    <button className="primary-btn">
-      <img src={icon} />
+    <button className="primary-btn" onClick={onClick}>
+      {!!icon && <img src={icon} />}
       {text}
     </button>
   );

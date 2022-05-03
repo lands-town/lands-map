@@ -10,6 +10,7 @@ import leftClick from "./static/icons/left-click.svg";
 import scroll from "./static/icons/scroll.svg";
 import rightClick from "./static/icons/right-click.svg";
 import { Interaction } from "./static/Interaction/src/index.js";
+import Select from "./components/BuyDialog";
 
 const App = () => {
   const webgl = useRef();
@@ -150,6 +151,7 @@ const App = () => {
           Move
         </li>
       </ul>
+      <Select />
     </>
   );
 };

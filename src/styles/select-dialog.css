@@ -1,0 +1,47 @@
+.dialog {
+  position: absolute;
+  border: 3px solid #006ff2;
+  z-index: 10;
+  left: 30px;
+  top: 80px;
+  background-color: #fff;
+  width: 400px;
+  display: flex;
+  padding: 10px;
+  border-radius: 12px;
+  align-items: center;
+}
+.dialog .dialog-text {
+  width: 250px;
+}
+.dialog .dialog-text {
+  width: 250px;
+}
+.dialog .dialog-text .h2 {
+  color: #13141d;
+}
+.dialog .dialog-text .name {
+  color: #006ff2;
+  font-size: 18px;
+  line-height: 30px;
+}
+
+.dialog img {
+  border-radius: 12px;
+  width: 110px;
+  margin-right: 10px;
+}
+
+.dialog-action {
+  align-self: end;
+}
+
+@media (max-width: 768px) {
+  .dialog {
+    top: auto;
+    bottom: 10px;
+    left: 50%;
+    transform: translate(-50%);
+    width: 90%;
+  }
+}
