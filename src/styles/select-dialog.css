@@ -23,17 +23,19 @@
 .dialog .dialog-text .name {
   color: #006ff2;
   font-size: 18px;
-  line-height: 30px;
+  line-height: 25px;
 }
 
 .dialog img {
   border-radius: 12px;
-  width: 110px;
+  width: 85px;
   margin-right: 10px;
 }
 
 .dialog-action {
   align-self: end;
+  position: absolute;
+  right: 10px;
 }
 
 @media (max-width: 768px) {
