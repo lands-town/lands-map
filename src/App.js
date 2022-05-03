@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import * as THREE from "three";
@@ -9,16 +9,12 @@ import Header from "./components/Header";
 import leftClick from "./static/icons/left-click.svg";
 import scroll from "./static/icons/scroll.svg";
 import rightClick from "./static/icons/right-click.svg";
+import { Interaction } from "./static/Interaction/src/index.js";
 
 const App = () => {
   const webgl = useRef();
 
   useEffect(() => {
-    /**
-     * Base
-     */
-    // Debug
-
     // Canvas
     const canvas = document.querySelector("canvas.webgl");
 
@@ -47,7 +43,12 @@ const App = () => {
       gltf.scene.traverse((child) => {
         child.material = materilgltf;
       });
+
       scene.add(gltf.scene);
+      gltf.scene.children[0].cursor = "pointer";
+      gltf.scene.children[0].on("click", function (ev) {
+        window.location.href = "#";
+      });
     });
 
     /**
@@ -82,9 +83,9 @@ const App = () => {
       0.1,
       100
     );
-    camera.position.x = 2;
-    camera.position.y = 32;
-    camera.position.z = 16;
+    camera.position.x = 0;
+    camera.position.y = 30;
+    camera.position.z = 0;
     scene.add(camera);
 
     // Controls
@@ -107,6 +108,7 @@ const App = () => {
     renderer.outputEncoding = THREE.sRGBEncoding;
 
     scene.background = new THREE.Color("#13141E");
+    const interaction = new Interaction(renderer, scene, camera);
 
     /**
      * Animate
@@ -141,7 +143,7 @@ const App = () => {
         </li>
         <li>
           <img src={scroll} />
-          Zoom 
+          Zoom
         </li>
         <li>
           <img src={rightClick} />
