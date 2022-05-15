@@ -14,6 +14,7 @@ import active from "./land/active";
 import axios from "axios";
 import handleCLick from "./land/event";
 
+const API = "https://api.lands.town/api/v1/map";
 const App = () => {
   const webgl = useRef();
   const [select, setSelect] = useState(null);
@@ -43,22 +44,16 @@ const App = () => {
 
     const materilgltf = new THREE.MeshBasicMaterial({ map: backed });
 
-    axios
-      .get(process.env.REACT_APP_API, {
-        headers: {
-          Authorization: `Bearer ${process.env.TOKEN}`,
-        },
-      })
-      .then(({ data }) => {
-        gltfLoader.load(glb, (gltf) => {
-          gltf.scene.traverse((child) => {
-            child.material = materilgltf;
-          });
-          active(gltf, data); //green lands
-          handleCLick(gltf, setSelect, data); // select
-          scene.add(gltf.scene);
+    axios.get(API).then(({ data }) => {
+      gltfLoader.load(glb, (gltf) => {
+        gltf.scene.traverse((child) => {
+          child.material = materilgltf;
         });
+        active(gltf, data); //green lands
+        handleCLick(gltf, setSelect, data); // select
+        scene.add(gltf.scene);
       });
+    });
 
     /**
      * Sizes
@@ -159,7 +154,9 @@ const App = () => {
           Move
         </li>
       </ul>
-      {select && <BuyDialog name={select.name} size={select.size} link={select.link} />}
+      {select && (
+        <BuyDialog name={select.name} size={select.size} link={select.link} />
+      )}
     </>
   );
 };
