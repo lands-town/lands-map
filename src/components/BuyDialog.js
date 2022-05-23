@@ -4,7 +4,7 @@ import Button from "./Button";
 import "../styles/select-dialog.css";
 
 export default function Select({ select, district = "One" }) {
-  const { name, size, image, link, location } = select;
+  const { name, size, image, link, location, isPreview = false } = select;
 
   return (
     <div className="dialog">
@@ -18,9 +18,11 @@ export default function Select({ select, district = "One" }) {
         </ul>
       </div>
       <div className="dialog-action">
-        <a href="#">
-          <Button text="Buy" />
-        </a>
+        {!isPreview && (
+          <a href="#">
+            <Button text="Buy" />
+          </a>
+        )}
       </div>
     </div>
   );

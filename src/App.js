@@ -20,6 +20,10 @@ const App = () => {
   const webgl = useRef();
   const [select, setSelect] = useState(null);
 
+  const params = window.location.search;
+  const searchParams = new URLSearchParams(params);
+  const child = searchParams.get("child");
+
   useEffect(() => {
     // Canvas
     const canvas = document.querySelector("canvas.webgl");
@@ -45,14 +49,22 @@ const App = () => {
 
     const materilgltf = new THREE.MeshBasicMaterial({ map: backed });
 
-    axios.get(API).then(({ data }) => {
+    axios.get(!!child ? `${API}/${child}` : API).then(({ data }) => {
       gltfLoader.load(glb, (gltf) => {
         gltf.scene.traverse((child) => {
           child.material = materilgltf;
         });
+
+        if (!!child) {
+          const { name, size, image, link, location } = data;
+          active(gltf, [data], "#0164d8");
+          setSelect({ name, size, image, link, location, isPreview: true });
+          return scene.add(gltf.scene);
+        }
+
         active(gltf, data); //green lands
         handleCLick(gltf, setSelect, data); // select
-        scene.add(gltf.scene);
+        return scene.add(gltf.scene);
       });
     });
 
