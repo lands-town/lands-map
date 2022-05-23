@@ -15,6 +15,7 @@ import axios from "axios";
 import handleCLick from "./land/event";
 
 const API = "https://api.lands.town/api/v1/map";
+
 const App = () => {
   const webgl = useRef();
   const [select, setSelect] = useState(null);
@@ -154,9 +155,7 @@ const App = () => {
           Move
         </li>
       </ul>
-      {select && (
-        <BuyDialog name={select.name} size={select.size} link={select.link} />
-      )}
+      {select && <BuyDialog select={select} />}
     </>
   );
 };

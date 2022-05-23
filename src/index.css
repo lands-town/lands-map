@@ -11,6 +11,10 @@ body {
   background: #13141e;
 }
 
+a {
+  text-decoration: none;
+}
+
 .webgl {
   position: fixed;
   top: 0;
