@@ -30,6 +30,7 @@
   border-radius: 4px;
   width: 105px;
   margin-right: 10px;
+  border: 1px solid #006ff4;
 }
 .dialog-action {
   align-self: end;
