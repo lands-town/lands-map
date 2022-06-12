@@ -14,7 +14,13 @@ export default function Header() {
           </div>
         </div>
       </a>
-      <Button text={"Opensea"} icon={openseaLogo} />
+      <a
+        href="https://opensea.io/collection/the-landscape-digital-real-estate"
+        rel="noopener noreferrer"
+        target={"_blank"}
+      >
+        <Button text={"Opensea"} icon={openseaLogo} />
+      </a>
     </header>
   );
 }

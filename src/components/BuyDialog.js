@@ -19,7 +19,7 @@ export default function Select({ select, district = "One" }) {
       </div>
       <div className="dialog-action">
         {!isPreview && (
-          <a href="#">
+          <a rel="noopener noreferrer" target={"_blank"} href={link}>
             <Button text="Buy" />
           </a>
         )}
