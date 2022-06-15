@@ -4,17 +4,25 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import glb from "./static/map/map-v1.glb";
 import texture from "./static/map/map-texture-v1.jpg";
+import Header from "./components/Header";
+import leftClick from "./static/icons/left-click.svg";
+import scroll from "./static/icons/scroll.svg";
+import rightClick from "./static/icons/right-click.svg";
 import { Interaction } from "./static/Interaction/src/index.js";
+import BuyDialog from "./components/BuyDialog";
 import active from "./land/active";
 import axios from "axios";
 import handleCLick from "./land/event";
-import Layout from "./components/Layout";
-import Spinner from "./components/Spinner";
+
+const API = "https://api.lands.town/api/v1/map";
 
 const App = () => {
-  const webgl = useRef("");
+  const webgl = useRef();
   const [select, setSelect] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+
+  const params = window.location.search;
+  const searchParams = new URLSearchParams(params);
+  const child = searchParams.get("child");
 
   useEffect(() => {
     // Canvas
@@ -41,23 +49,24 @@ const App = () => {
 
     const materilgltf = new THREE.MeshBasicMaterial({ map: backed });
 
-    axios
-      .get(`https://api.lands.town/api/v1/map`, {
-        headers: {
-          Authorization: `Bearer ${process.env.TOKEN}`,
-        },
-      })
-      .then(({ data }) => {
-        gltfLoader.load(glb, (gltf) => {
-          gltf.scene.traverse((child) => {
-            child.material = materilgltf;
-          });
-          active(gltf, data); //green lands
-          handleCLick(gltf, setSelect, data); // select
-          scene.add(gltf.scene);
-          setIsLoading(false);
+    axios.get(!!child ? `${API}/${child}` : API).then(({ data }) => {
+      gltfLoader.load(glb, (gltf) => {
+        gltf.scene.traverse((child) => {
+          child.material = materilgltf;
         });
+
+        if (!!child) {
+          const { name, size, image, link, location } = data;
+          active(gltf, [data], "#0164d8");
+          setSelect({ name, size, image, link, location, isPreview: true });
+          return scene.add(gltf.scene);
+        }
+
+        active(gltf, data); //green lands
+        handleCLick(gltf, setSelect, data); // select
+        return scene.add(gltf.scene);
       });
+    });
 
     /**
      * Sizes
@@ -140,10 +149,26 @@ const App = () => {
   }, []);
 
   return (
-    <Layout select={select}>
-      {isLoading && <Spinner />}
+    <>
+      <Header />
       <canvas className="webgl" ref={webgl}></canvas>
-    </Layout>
+
+      <ul className="hint">
+        <li>
+          <img src={leftClick} />
+          Rotate
+        </li>
+        <li>
+          <img src={scroll} />
+          Zoom
+        </li>
+        <li>
+          <img src={rightClick} />
+          Move
+        </li>
+      </ul>
+      {select && <BuyDialog select={select} />}
+    </>
   );
 };
 

@@ -9,11 +9,10 @@ const clear = (gltf, lands) => {
 };
 
 const handleCLick = (gltf, setSelect, lands) => {
-  lands.map(({ child, name, size, link }) => {
+  lands.map(({ child, name, size, link, image, location }) => {
     gltf.scene.children[Number(child)].cursor = "pointer";
     gltf.scene.children[Number(child)].on("click", function (ev) {
-      setSelect({ name, size, link });
-      console.log(ev);
+      setSelect({ name, size, link, image, location });
       clear(gltf, lands);
       gltf.scene.children[Number(child)].material = new THREE.MeshBasicMaterial(
         {

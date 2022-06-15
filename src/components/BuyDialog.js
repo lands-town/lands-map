@@ -1,25 +1,28 @@
 import React from "react";
 import Button from "./Button";
-import defaultImage from "../static/map/land-04x04.png";
 
 import "../styles/select-dialog.css";
 
-export default function Select({
-  name = "Land-0001",
-  size = "04x04",
-  image = defaultImage,
-  district = "One",
-}) {
+export default function Select({ select, district = "One" }) {
+  const { name, size, image, link, location, isPreview = false } = select;
+
   return (
     <div className="dialog">
       <img src={image} />
       <div className="dialog-text">
-        <h2>district {district}</h2>
-        <p className="name">{name}</p>
-        <p>Size: {size}</p>
+        <h4>Name: {name}</h4>
+        <ul className="attributes">
+          <li>District: {district}</li>
+          <li>location: {location}</li>
+          <li>Size: {size}</li>
+        </ul>
       </div>
       <div className="dialog-action">
-        <Button text="Buy" onClick={() => console.log("click")} />
+        {!isPreview && (
+          <a rel="noopener noreferrer" target={"_blank"} href={link}>
+            <Button text="Buy" />
+          </a>
+        )}
       </div>
     </div>
   );
